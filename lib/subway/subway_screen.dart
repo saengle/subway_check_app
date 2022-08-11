@@ -43,7 +43,7 @@ class _SubwayScreenState extends State<SubwayScreen> {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
       final subwayViewModel = context.read<SubwayViewModel>();
-      subwayViewModel.fetchData(query);
+      return  subwayViewModel.fetchData(query);
     });
   }
 
@@ -89,8 +89,14 @@ class _SubwayScreenState extends State<SubwayScreen> {
                   children: subwayViewModel.dataList.map((Subway dataList) {
                     return Column(
                       children: [
-                        Text(dataList.arvlMsg2, style: TextStyle(fontSize: 17),),
-                        Text(dataList.trainLineNm, style: TextStyle(fontSize: 17),),
+                        Text(
+                          dataList.arvlMsg2,
+                          style: const TextStyle(fontSize: 17),
+                        ),
+                        Text(
+                          dataList.trainLineNm,
+                          style: const TextStyle(fontSize: 17),
+                        ),
                         const Divider(),
                       ],
                     );
