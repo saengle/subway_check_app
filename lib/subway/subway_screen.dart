@@ -60,36 +60,42 @@ class _SubwayScreenState extends State<SubwayScreen> {
       body: Center(
         child: Column(
           children: [
-            TextField(
-              controller: _controller,
-              onChanged: (value) {
-                if (value.isNotEmpty) _onSearchChanged(_controller.text);
-              },
-              decoration: InputDecoration(
-                enabledBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(width: 2),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _controller,
+                onChanged: (value) {
+                  if (value.isNotEmpty) _onSearchChanged(_controller.text);
+                },
+                decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(width: 2),
+                  ),
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      subwayViewModel.fetchData(_controller.text);
+                    },
+                    child: const Icon(Icons.search),
+                  ),
+                  hintText: '지하철 정류장을 입력하세요',
                 ),
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    subwayViewModel.fetchData(_controller.text);
-                  },
-                  child: const Icon(Icons.search),
-                ),
-                hintText: '지하철 정류장을 입력하세요',
               ),
             ),
             Expanded(
-              child: ListView(
-                children: subwayViewModel.dataList.map((Subway dataList) {
-                  return Column(
-                    children: [
-                      Text(dataList.arvlMsg2),
-                      Text(dataList.trainLineNm),
-                      const Divider(),
-                    ],
-                  );
-                }).toList(),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView(
+                  children: subwayViewModel.dataList.map((Subway dataList) {
+                    return Column(
+                      children: [
+                        Text(dataList.arvlMsg2, style: TextStyle(fontSize: 17),),
+                        Text(dataList.trainLineNm, style: TextStyle(fontSize: 17),),
+                        const Divider(),
+                      ],
+                    );
+                  }).toList(),
+                ),
               ),
             )
           ],
