@@ -43,7 +43,7 @@ class _SubwayScreenState extends State<SubwayScreen> {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
       final subwayViewModel = context.read<SubwayViewModel>();
-      return  subwayViewModel.fetchData(query);
+      return subwayViewModel.fetchData(query);
     });
   }
 
@@ -84,25 +84,20 @@ class _SubwayScreenState extends State<SubwayScreen> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView(
-                  children: subwayViewModel.dataList.map((Subway dataList) {
-                    return Column(
-                      children: [
-                        Text(
-                          dataList.arvlMsg2,
-                          style: const TextStyle(fontSize: 17),
-                        ),
-                        Text(
-                          dataList.trainLineNm,
-                          style: const TextStyle(fontSize: 17),
-                        ),
-                        const Divider(),
-                      ],
-                    );
-                  }).toList(),
-                ),
-              ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children:
+                        subwayViewModel.dataList.map((Subway arrivalList) {
+                      return Column(
+                        children: [
+                          Text(arrivalList.trainLineNm),
+                          Text(arrivalList.arvlMsg2),
+                          Text(arrivalList.statnNm),
+                          const Divider(),
+                        ],
+                      );
+                    }).toList(),
+                  )),
             )
           ],
         ),
